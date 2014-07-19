@@ -36,5 +36,4 @@ feature 'Task lists' do
     expect(page).to have_content "Email Julia"
     expect(page).to have_content ("(5 days)")
   end
-
 end

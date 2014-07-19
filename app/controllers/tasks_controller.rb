@@ -6,8 +6,12 @@ class TasksController < ApplicationController
   def create
     task = Task.new(task_parameters)
     task.task_list_id = params[:task_list_id]
-    task.save
+    if task.save
     redirect_to root_path, notice: "Task was created successfully!"
+    else
+      @task = task
+      render :new
+    end
   end
 
   private
