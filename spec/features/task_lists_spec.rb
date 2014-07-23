@@ -43,7 +43,8 @@ feature 'Task lists' do
     task_list = TaskList.create!(name: "Work List")
     create_task(
       description: "Buy stuff",
-      task_list_id: task_list.id
+      task_list_id: task_list.id,
+      user_id: user.id
     )
 
     visit root_path
@@ -61,12 +62,14 @@ feature 'Task lists' do
     next_task = create_task(
       description: "Buy other stuff",
       task_list_id: task_list.id,
-      due_date: 2.days.from_now
+      due_date: 2.days.from_now,
+      user_id: user.id
     )
     first_task = create_task(
       description: "Buy stuff",
       task_list_id: task_list.id,
-      due_date: 1.day.from_now
+      due_date: 1.day.from_now,
+      user_id: user.id
     )
 
     visit root_path
@@ -78,6 +81,23 @@ feature 'Task lists' do
     log_in_user(user)
 
     TaskList.create!(name: "Work List")
+
+    visit root_path
+    expect(page).to have_content "Nothing here to see!"
+  end
+
+  scenario 'Users can only see tasks that they created' do
+    user1 = create_user(name: "User 1", email: "user1@example.com")
+    user2 = create_user(name: "User 2", email: "user2@example.com")
+    log_in_user(user1)
+
+    task_list = TaskList.create!(name: "Work List")
+    create_task(
+      description: "Buy stuff",
+      task_list_id: task_list.id,
+      due_date: 1.day.from_now,
+      user_id: user2.id
+    )
 
     visit root_path
     expect(page).to have_content "Nothing here to see!"

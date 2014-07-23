@@ -6,7 +6,7 @@
 
   <section class="task-list">
     <h1><%= task_list.name %> - <%= link_to "+Add Task", new_task_list_task_path(task_list.id) %></h1>
-    <% tasks = task_list.tasks.ordered.incomplete %>
+    <% tasks = task_list.tasks.owned(current_user).ordered.incomplete %>
     <% if tasks.present? %>
       <%= render partial: 'task_lists/tasks', locals: {tasks: tasks, task_list: task_list} %>
     <% else %>
