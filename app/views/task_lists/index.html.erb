@@ -5,7 +5,7 @@
 <% @task_lists.each do |task_list| %>
 
   <section class="task-list">
-    <h1><%= task_list.name %> - <%= link_to "+Add Task", new_task_list_task_path(task_list.id) %></h1>
+    <div class="task-name"><%= task_list.name %></div><div class="add-task"><%= link_to "+Add Task", new_task_list_task_path(task_list.id) %></div>
     <% tasks = task_list.tasks.owned(current_user).ordered.incomplete %>
     <% if tasks.present? %>
       <%= render partial: 'task_lists/tasks', locals: {tasks: tasks, task_list: task_list} %>

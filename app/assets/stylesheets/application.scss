@@ -80,7 +80,56 @@ main {
     border-top: 1px solid darkblue;
   }
 
-  h1 {
-    font-size: 110%;
+  .task-name {
+    font: 1.2em sans-serif;
+    font-weight: 700;
+    width: 80%;
+    display: inline-block
   }
+
+  .add-task {
+    width: 20%;
+    right: 0;
+    text-align: right;
+    display: inline-block;
+  }
+
+  .task-info {
+    font-weight: 300;
+    background-color: #c2466d;
+    color: #fff;
+    border: 2px solid #6d5862;
+    padding: .8em 1em;
+    .button_to {
+      display: inline-block;
+    }
+    .complete {
+      color: black;
+      background: #fff;
+      border: 2px solid #aaa;
+    }
+  }
+}
+
+.new-task-form {
+  @extend .signin-form;
+  width: 24em;
+  select {
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+    color: #555;
+    outline: none;
+  }
+  .field_with_errors {
+    display: inline-block;
+  }
+}
+
+.message {
+  font-weight: 300;
+  padding-left: 1em;
+  background-color: #3cc276;
+  color: #fff;
+  border: 2px solid #516d58;
 }

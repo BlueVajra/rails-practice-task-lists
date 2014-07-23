@@ -1,13 +1,20 @@
-<% if @task.errors.present? %>
-  <% @task.errors.full_messages.each do |error_msg| %>
-    <%= error_msg %>
+<%= form_for @task, url: {action: "create"}, html: {class: "new-task-form"} do |f| %>
+  <% if @task.errors.present? %>
+    <% @task.errors.full_messages.each do |error_msg| %>
+      <div class="errors">
+        <%= error_msg %>
+      </div>
+    <% end %>
   <% end %>
-<% end %>
-
-<%= form_for @task, url: {action: "create"} do |f| %>
-  <%= f.label :description %>
-  <%= f.text_field :description %>
-  <%= f.label :due_date %>
-  <%= f.date_select :due_date, order: [:day, :month, :year], start_year: Date.today.year %>
-  <%= f.submit "Create Task" %>
+  <div>
+    <%= f.label :description %>
+    <%= f.text_field :description %>
+  </div>
+  <div>
+    <%= f.label :due_date %>
+    <%= f.date_select :due_date, order: [:day, :month, :year], start_year: Date.today.year %>
+  </div>
+  <div>
+    <%= f.submit "Create Task" %>
+  </div>
 <% end %>
