@@ -77,7 +77,7 @@ feature 'Task lists' do
     user = create_user email: "user@example.com"
     log_in_user(user)
 
-    task_list = TaskList.create!(name: "Work List")
+    TaskList.create!(name: "Work List")
 
     visit root_path
     expect(page).to have_content "Nothing here to see!"
