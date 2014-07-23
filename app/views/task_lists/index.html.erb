@@ -9,6 +9,7 @@
     <% task_list.tasks.each do |task| %>
       <%= task.description %>
       (<%= (task.due_date - Date.current).to_i %> days)
+      <%= button_to "Complete", task_list_task_path(id: task.id, task_list_id: task_list.id), method: :delete, id: task.id %>
     <% end %>
   </section>
 

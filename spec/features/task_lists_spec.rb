@@ -36,4 +36,21 @@ feature 'Task lists' do
     expect(page).to have_content "Email Julia"
     expect(page).to have_content ("(5 days)")
   end
+
+  scenario 'User can complete a task' do
+    user = create_user email: "user@example.com"
+    log_in_user(user)
+
+    task_list = TaskList.create!(name: "Work List")
+    create_task(
+      description: "Buy stuff",
+      task_list_id: task_list.id
+    )
+
+    visit root_path
+    expect(page).to have_content "Buy stuff"
+    click_button "Complete"
+
+    expect(page).to_not have_content "Buy stuff"
+  end
 end

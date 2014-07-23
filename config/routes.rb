@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   post "signin" => "sessions#create"
   get "signout" => "sessions#destroy", as: :signout
   resources :task_lists do
-    resources :tasks, only: [:new, :create]
+    resources :tasks, only: [:new, :create, :destroy]
   end
+  post "tasks" => "tasks#destroy", as: :delete_task
 end
