@@ -72,4 +72,14 @@ feature 'Task lists' do
     visit root_path
     expect(page.body.index(first_task.description)).to be < page.body.index(next_task.description)
   end
+
+  scenario 'Empty task lists show a friendly message' do
+    user = create_user email: "user@example.com"
+    log_in_user(user)
+
+    task_list = TaskList.create!(name: "Work List")
+
+    visit root_path
+    expect(page).to have_content "Nothing here to see!"
+  end
 end

@@ -6,11 +6,12 @@
 
   <section class="task-list">
     <h1><%= task_list.name %> - <%= link_to "+Add Task", new_task_list_task_path(task_list.id) %></h1>
-    <% task_list.tasks.ordered.incomplete.each do |task| %>
-      <div class="task">
-        <%= task.description %>
-        (<%= (task.due_date - Date.current).to_i %> days)
-        <%= button_to "Complete", task_list_task_path(id: task.id, task_list_id: task_list.id), method: :delete, id: task.id %>
+    <% tasks = task_list.tasks.ordered.incomplete %>
+    <% if tasks.present? %>
+      <%= render partial: 'task_lists/tasks', locals: {tasks: tasks, task_list: task_list} %>
+    <% else %>
+      <div class="message">
+        <p>Nothing here to see!</p>
       </div>
     <% end %>
   </section>
