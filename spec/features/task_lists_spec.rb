@@ -102,4 +102,15 @@ feature 'Task lists' do
     visit root_path
     expect(page).to have_content "Nothing here to see!"
   end
+
+  scenario 'Non-logged-in users cannot see the new task page or create a task' do
+    task_list = TaskList.create!(name: "Work List")
+    task = create_task(
+      description: "Buy stuff",
+      task_list_id: task_list.id,
+      due_date: 1.day.from_now,
+    )
+    visit new_task_list_task_path(id: task.id, task_list_id: task_list.id)
+    expect(page.current_path).to eq signin_path
+  end
 end
