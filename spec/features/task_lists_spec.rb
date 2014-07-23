@@ -18,7 +18,6 @@ feature 'Task lists' do
   end
 
   scenario 'User can add a task' do
-    include 'active_support/core_ext/date/calculations.rb'
     create_user email: "user@example.com"
     TaskList.create!(name: "Work List")
 
@@ -52,5 +51,25 @@ feature 'Task lists' do
     click_button "Complete"
 
     expect(page).to_not have_content "Buy stuff"
+  end
+
+  scenario 'User sees tasks in order of their due date' do
+    user = create_user email: "user@example.com"
+    log_in_user(user)
+
+    task_list = TaskList.create!(name: "Work List")
+    next_task = create_task(
+      description: "Buy other stuff",
+      task_list_id: task_list.id,
+      due_date: 2.days.from_now
+    )
+    first_task = create_task(
+      description: "Buy stuff",
+      task_list_id: task_list.id,
+      due_date: 1.day.from_now
+    )
+
+    visit root_path
+    expect(page.body.index(first_task.description)).to be < page.body.index(next_task.description)
   end
 end

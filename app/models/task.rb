@@ -3,4 +3,5 @@ class Task < ActiveRecord::Base
   validates :description, presence: true
 
   scope :incomplete, -> { where(complete?: false)}
+  scope :ordered, -> { order(:due_date) }
 end
