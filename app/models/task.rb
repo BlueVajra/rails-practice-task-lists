@@ -5,4 +5,5 @@ class Task < ActiveRecord::Base
 
   scope :incomplete, -> { where(completed: false) }
 
+  belongs_to :user, foreign_key: "assigned_to"
 end
