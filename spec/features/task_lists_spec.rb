@@ -13,4 +13,12 @@ feature 'Task lists' do
     expect(page).to have_content("Household Chores")
   end
 
+  scenario 'User can filter tasks' do
+    # create 3 task lists
+
+    # apply the filter
+
+    # only 1 or 2 lists should show up
+  end
+
 end
